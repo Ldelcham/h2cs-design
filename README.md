@@ -3,6 +3,8 @@
 ## Introduction
 Repository for WP3 of H2CS project
 
+Binary files should not be uploaded on this repository but sharepoint repository of the WP [here](https://msclefscrl.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?originalPath=aHR0cHM6Ly9tc2NsZWZzY3JsLnNoYXJlcG9pbnQuY29tLzpmOi9nL0VxREZGYlVJZGVGQnBocm9JMEpFWU1vQkNwaVJCbFNDLUZ3WFFRc1I0VXEweXc%5FcnRpbWU9RHdKb1J1bkkyRWc&viewid=9e8eb8d5%2Dce9f%2D4554%2Da177%2Dea7167642b8d&id=%2FShared%20Documents%2FProjets%20de%20recherche%2FH2%20CoopStorage%20%2D%20MICall19%2F6%2E%20WP%2FWP3%20%2D%20Sizing%20tool)
+
 ## Contribution
 
 For contributing to the project development, you will need a github account (free)
