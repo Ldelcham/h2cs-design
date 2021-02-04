@@ -7,7 +7,6 @@ Binary files should not be uploaded on this repository but sharepoint repository
 
 ## Contribution
 
-Contribution
 For contributing to the project development, you will need a github account (free)
 
 After create a github acount you can loged in h2cs-design repository using your account.
@@ -17,10 +16,10 @@ On the web interface, press Fork to fork the repository to your gittest account.
 Clone the repository from your gittest account on your computer or your work station
 
 ```
-git clone http://gittest.cenaero.be:3000/your-gittest-account/pytpee.git
-cd pytpee
+git clone https://github.com/your-github-account/h2cs-design.git
+cd h2cs-design
 # Add a remote upstream so that you can get changes from the master branch
-git remote add upstream http://gittest.cenaero.be:3000/WEC-ENR/pytpee.git
+git remote add upstream https://github.com/cenaero-enb/h2cs-design.git
 ```
 
 Make changes (for ex. edit README file with vim vi README.md) and then commit your changes
