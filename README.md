@@ -7,9 +7,7 @@ Binary files should not be uploaded on this repository but sharepoint repository
 
 ## Contribution
 
-<<<<<<< HEAD
 Contribution
-=======
 For contributing to the project development, you will need a github account (free)
 
 After create a github acount you can loged in h2cs-design repository using your account.
@@ -49,4 +47,3 @@ git push
 ```
 
 Finally, on the web interface of your account, open a Pull Request so that the changes are merged to the master branch. By using @mention system in your Pull Request message, you can ask for feedback from specific people or teams, whether they're down the hall or ten time zones away. Pull Requests provide a way to notify project maintainers about the changes you'd like them to consider.
->>>>>>> upstream/main
