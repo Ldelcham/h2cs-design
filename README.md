@@ -7,13 +7,7 @@ Binary files should not be uploaded on this repository but sharepoint repository
 
 ## Contribution
 
-<<<<<<< HEAD
-Contribution
-
-For contributing to the project development, you will need a github account (free or paid)
-=======
 For contributing to the project development, you will need a github account (free)
->>>>>>> upstream/main
 
 After create a github acount you can loged in h2cs-design repository using your account.
 
