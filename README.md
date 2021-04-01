@@ -1,30 +1,83 @@
-# h2cs-design
+# VPPopt - Virtual Power Plant Optimization Platform
+
+## The platform is current under development
 
 ## Introduction
-Repository for WP3 of H2CS project
 
-Binary files should not be uploaded on this repository but sharepoint repository of the WP [here](https://msclefscrl.sharepoint.com/Shared%20Documents/Forms/AllItems.aspx?originalPath=aHR0cHM6Ly9tc2NsZWZzY3JsLnNoYXJlcG9pbnQuY29tLzpmOi9nL0VxREZGYlVJZGVGQnBocm9JMEpFWU1vQkNwaVJCbFNDLUZ3WFFRc1I0VXEweXc%5FcnRpbWU9RHdKb1J1bkkyRWc&viewid=9e8eb8d5%2Dce9f%2D4554%2Da177%2Dea7167642b8d&id=%2FShared%20Documents%2FProjets%20de%20recherche%2FH2%20CoopStorage%20%2D%20MICall19%2F6%2E%20WP%2FWP3%20%2D%20Sizing%20tool)
+VPPopt platform is developed within the framework of [H2 CoopStorage](https://h2coopstorage.eu) project (WP3). The objective of this WP is to develop a tool for (optimally) sizing a Community-based Virtual Power Plant with a hybrid solution of energy storage using electric batteries and hydrogen production.
+
+VPPopt will be developed to *optimize planning of generation, storage to maximize the value of integrated distributed energy system for a virtural power plant.*
+
+*Formulated as a **mixed integer linear program (MILP)**, VPPopt recommends an optimally sized mix of **renewable energy**, and **energy storage technologies**; provides a **dispatch strategy** for operating the technology mix at **maximum economic efficiency**; and estimates the **net present value** of implementing those technologies*
+
+## VPPopt (expected) Capabilities
+
+VPPopt is expected to offer a range of features and capabilities to help users with planning and optimizing renewable energy (PV, Wind and geothermal) and energy storage systems including h2 storage and electric battery technology within a virtual power plant.
+
+The following table describes the full breadth of VPPopt capabilities, including data inputs and variables, and the platform’s outputs and recommendations.
+
+### Data Inputs
+
+|Type |Name| Description|
+|-------|-----------|-----------|
+|Drivers|Energy cost|Utility energy and demand charges, and market participation revenues|
+|Drivers|Economic factors|Technology costs, incentives, and financial parameters|
+|Drivers|Resilience and environmental goals, including:|Minimizing life cycle cost of energy, providing resilience to sustain critical loads during outages, and meeting emissions reduction or percent renewable energy targets|
+
+To be completed ...
+
+### Outputs
+
+To be completed ...
+
+## Installation
+
+python 3 is required, miniconda is recommended
+
+```bash
+git clone https://github.com/cenaero-enb/h2cs-design.git
+cd h2cs-design
+python setup.py install
+```
+
+To be completed ...
+
+## Usage
+
+To be completed ...
+
+## Example
+
+```python
+import vppopt
+m = vppopt.Model(solver='IPOPT')
+results = vppopt.run_vppopt(m,'path/to/senario.json')
+```
 
 ## Contribution
 
 For contributing to the project development, you will need a github account (free)
 
-After create a github acount you can loged in h2cs-design repository using your account.
+After creating a github acount you can loged in h2cs-design repository using your account.
 
-On the web interface, press Fork to fork the repository to your gittest account.
+On the web interface, press [Fork](https://github.com/cenaero-enb/h2cs-design) to fork the repository to your gittest account.
 
 Clone the repository from your gittest account on your computer or your work station
 
-```
+```bash
 git clone https://github.com/your-github-account/h2cs-design.git
 cd h2cs-design
-# Add a remote upstream so that you can get changes from the master branch
+```
+
+Add a remote upstream so that you can get changes from the `main` branch
+
+```bash
 git remote add upstream https://github.com/cenaero-enb/h2cs-design.git
 ```
 
 Make changes (for ex. edit README file with vim vi README.md) and then commit your changes
 
-```
+```bash
 vi README.md
 commit -m "Made changes to README.md" README.md
 ```
@@ -33,7 +86,7 @@ Fetch upstream changes, without changing local files, and merge changes from the
 
 More detail about forking projects could be found [HERE](https://guides.github.com/activities/forking/)
 
-```
+```bash
 # Fetch all branches of remote upstream
 git fetch upstream
 git merge upstream/master
@@ -41,8 +94,14 @@ git merge upstream/master
 
 Push the changes to your repository
 
-```
+```bash
 git push
 ```
 
-Finally, on the web interface of your account, open a Pull Request so that the changes are merged to the master branch. By using @mention system in your Pull Request message, you can ask for feedback from specific people or teams, whether they're down the hall or ten time zones away. Pull Requests provide a way to notify project maintainers about the changes you'd like them to consider.
+Finally, on the web interface of your account, open a `Pull Request` so that the changes are merged to the `main` or `develop` branch. By using @mention system in your Pull Request message, you can ask for feedback from specific people or teams, whether they're down the hall or ten time zones away. Pull Requests provide a way to notify project maintainers about the changes you'd like them to consider.
+
+## Main developers
+
+|Name|Affiliation|Email|
+|-----|-----|-----|
+|Van long Lê|Cenaero|vanlong.le@cenaero.be|
