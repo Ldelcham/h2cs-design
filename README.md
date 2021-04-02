@@ -46,6 +46,14 @@ To be completed ...
 
 To be completed ...
 
+??? Evaluating only PV and Battery requires a linear program solver???
+
+??? Adding a generator and/or multiple outages makes the problem mix-integer linear, and thus requires a MILP solver.
+
+???VPPopt will be tested with Cbc and IPOPT???
+
+Ask ULB for testing with CPLEX
+
 ## Example
 
 ```python
