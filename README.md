@@ -4,6 +4,8 @@
 
 ## Introduction
 
+__to be improved/adapted/modified__
+
 VPPopt platform is developed within the framework of [H2 CoopStorage](https://h2coopstorage.eu) project (WP3). The objective of this WP is to develop a tool for (optimally) sizing a Community-based Virtual Power Plant with a hybrid solution of energy storage using electric batteries and hydrogen production.
 
 VPPopt will be developed to *optimize planning of generation, storage to maximize the value of integrated distributed energy system for a virtural power plant.*
@@ -32,7 +34,7 @@ To be completed ...
 
 ## Installation
 
-python 3 is required, miniconda is recommended
+python 3 is required, [miniconda]() is recommended
 
 ```bash
 git clone https://github.com/cenaero-enb/h2cs-design.git
@@ -113,3 +115,9 @@ Finally, on the web interface of your account, open a `Pull Request` so that the
 |Name|Affiliation|Email|
 |-----|-----|-----|
 |Van long Lê|Cenaero|vanlong.le@cenaero.be|
+
+## supported solvers
+
+|Solver|License|Supports|
+|------|-----|------|
+||||

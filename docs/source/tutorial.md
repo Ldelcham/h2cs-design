@@ -2,16 +2,18 @@
 
 Inspired from
 
-- vpplib
-- micro-grids
-- Reoptlite
+- [vpplib](https://github.com/Pyosch/vpplib)
+- [micro-grids](https://github.com/MicroGridsPy/Micro-Grids)
+- [Reoptlite](https://github.com/NREL/REoptLite)
+- [OSeMOSYS](https://github.com/OSeMOSYS/OSeMOSYS) (Open-Source Energy Modelling System)
+- [oemof](https://github.com/oemof)(Open Energy Modelling Framework)
 
 ## Inputs
 
-Input tot `h2cs_run` can be provided in one of three format:
+Input to `run_vppopt` can be provided in one of three format:
 
 1. a file path (string) to a JSON file
-2. a Dict, or 
+2. a Dict, or
 3. using H2csInputs struct
 
 The first option is perhaps the most straightforward one. For example, the minimum requirements for a JSON scenario file would look like:
@@ -55,20 +57,22 @@ To add PV to the analysis simply add a PV key with an empty dictionary (to use d
 }
 ```
 
+This scenario will consider the option 
+
 ## Examples
 
-To run `h2cs` an optimization solver is needed.
+To run `vppopt` an optimization solver is needed. vppopt will be developed and test with opensource optimization solvers like IPOPT, CBC but it should work with other
 
-- Linear Program solvers
-- Mixed Integer Linear Program solver
+- Linear Program solvers (for PV and Storage Scenarios)
+- Mixed Integer Linear Program solver (for scenarios with outages and/or Generators)
 
 ### Basic
 
 ```python
-import h2cs
+import vppopt
 
 m = Model(solver=IOPT)
-results = h2cs_run(m,senario)
+results = run_vppopt(m,senario)
 ```
 
 ### Advanced

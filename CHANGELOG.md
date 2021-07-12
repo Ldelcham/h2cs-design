@@ -1,9 +1,15 @@
 
 # VPPopt changelog
 
+## TODO
+
+- graphviz for draw bus, node and edge
+
 ## v2021.02
 
 ## v2021.01 Initial release
+
+- add init, run, excel_reader to vppopt/interfaces/cli
 
 ### Platform features
 
