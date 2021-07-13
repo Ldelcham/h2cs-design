@@ -1,0 +1,145 @@
+{
+    "$id":"http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref":"#/definitions/Vppopt Workflow Schema",
+    "definitions": {
+        "Vppopt Workflow Schema":{
+            "description": "JSON Schema for vppopt scenario",
+            "type":"object",
+            "properties": {
+                "ProjName":{
+                    "title": "Project Name",
+                    "description": "Name of project",
+                    "type":"string",
+                    "default":"Untitled Project"
+                },
+                "ProjDir":{
+                    "description": "Path to the project directory",
+                    "type":"string",
+                    "default":""
+                },
+                "WorkflowFile":{
+                    "description": "workflow file path",
+                    "type":"string",
+                    "default":"pytpee.json"
+                },
+                "Scenario":{
+                    "description": "Scenario for vppopt",
+                    "type":"object",
+                    "properties": {
+                        "Site":{
+                            "$ref":"#/definitions/Site Data",
+                            "default":{}
+                        },
+                        "PV":{
+                            "$ref":"#/definitions/PV Data",
+                            "default":{}
+                        },
+                        "ElectricLoad":{
+                            "$ref":"#/definitions/Electric Load Data",
+                            "default":{}
+                        },
+                        "Financial":{
+                            "$ref":"#definitions/Financial Data",
+                            "default":{}
+                        }
+                    },
+                    "default":{}
+                },
+                "EnergySystem":{
+                    "description": "Energy system",
+                    "type":"object",
+                    "properties": {
+                        "BusList":{
+                            "description": "List all of bus of current energy system",
+                            "type":"array",
+                            "items": {
+                                "$ref":"#definitions/Bus Data",
+                                "default":{}
+                            },
+                            "default":[]
+                        }
+                    },
+                    "default":{}
+                }
+
+            }
+        },
+        "Site Data":{
+            "description": "Site data for vppopt",
+            "type":"object",
+            "properties": {
+                "longitude":{
+                    "description": "longitude",
+                    "type":["string","number"],
+                    "default":""
+                },
+                "latitude":{
+                    "description": "latitude",
+                    "type":["string","number"],
+                    "default":""
+                }
+            }
+        },
+        "PV Data":{
+            "description": "PV data fro vppopt",
+            "type":"object",
+            "properties": {
+                "cost_per_kw":{
+                    "description": "cost per installed kw",
+                    "type":["string","number"],
+                    "default":""
+                },
+                "tilt":{
+                    "description": "tilt angle",
+                    "type":["null","number"],
+                    "default":null
+                }
+            },
+            "default":{}
+        },
+        "Electric Load Data":{
+            "description": "Electric load data fro vppopt",
+            "type":"object",
+            "properties": {
+                "loads_kw":{
+                    "description": "loads kw data",
+                    "type":["array"],
+                    "default":[]
+                }
+
+            },
+            "default":{}
+        },
+        "Bus Data":{
+            "description": "data for BUS of energy system",
+            "type":"object",
+            "properties": {
+                "Name":{
+                    "description": "Bus name",
+                    "type":"string",
+                    "default":""
+                },
+                "Label":{
+                    "description": "Bus label",
+                    "type":"string",
+                    "default":""
+                }
+            },
+            "default":{}
+        },
+        "Financial Data":{
+            "description": "Financial data for vppopt",
+            "type":"object",
+            "properties": {
+                "analysis_years":{
+                    "description": "number of year for analysis period",
+                    "type":["null","integer"],
+                    "default":null
+                }
+            }
+        }
+    }
+
+    
+}
