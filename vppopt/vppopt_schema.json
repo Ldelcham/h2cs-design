@@ -46,20 +46,30 @@
                     },
                     "default":{}
                 },
-                "EnergySystem":{
-                    "description": "Energy system",
+                "Nodes":{
+                    "description": "Nodes data",
                     "type":"object",
                     "properties": {
-                        "BusList":{
-                            "description": "List all of bus of current energy system",
-                            "type":"array",
-                            "items": {
-                                "$ref":"#definitions/Bus Data",
-                                "default":{}
+                        "Buses":{
+                            "description": "Buses data",
+                            "type":"object",
+                            "properties": {
+                                "label":{
+                                    "description": "bus lable, e.g. bel, bgas",
+                                    "type":"array",
+                                    "items": {
+                                        "$ref":"#/definitions/Oemof Label Data"
+                                    },
+                                    "default":[]
+                                }
                             },
-                            "default":[]
+                            "default":{}
                         }
                     },
+                    "default":{}
+                },
+                "ExternalScript":{
+                    "$ref":"#/definitions/External Script Data",
                     "default":{}
                 }
 
@@ -111,22 +121,10 @@
             },
             "default":{}
         },
-        "Bus Data":{
-            "description": "data for BUS of energy system",
-            "type":"object",
-            "properties": {
-                "Name":{
-                    "description": "Bus name",
-                    "type":"string",
-                    "default":""
-                },
-                "Label":{
-                    "description": "Bus label",
-                    "type":"string",
-                    "default":""
-                }
-            },
-            "default":{}
+        "Oemof Label Data":{
+            "description": "Oemof.solph label data",
+            "type":["null","string"],
+            "default":null
         },
         "Financial Data":{
             "description": "Financial data for vppopt",
@@ -138,6 +136,49 @@
                     "default":null
                 }
             }
+        },
+        "External Script Data":{
+            "description": "External Python Script",
+            "type":"object",
+            "properties": {
+                "script_dir":{
+                    "description": "scripts dirname",
+                    "type":"string",
+                    "default":""
+                },
+                "scripts":{
+                    "description": "external python scripts",
+                    "type":"array",
+                    "items": {
+                        "#ref":"#/definitions/External Script Definition"
+                    },
+                    "default":[{}]
+                }
+            }
+        },
+        "External Script Definition":{
+            "description": "External Python Script",
+            "title": "External Python Script",
+            "type":"object",
+            "properties": {
+                "name":{
+                    "description": "name of python external script, i.e. update_schedule_electric_equipment",
+                    "type":"string",
+                    "default":""
+                },
+                "tag":{
+                    "description": "type of python external script, i.e. 'inputgen' or 'model' or 'reporting'",
+                    "type":"string",
+                    "enum": ["","inputgen","model","reporting"],
+                    "default":""
+                },
+                "arguments":{
+                    "description": "keyword argument with value, e.g. 'apart_list':['B02']",
+                    "type":"object",
+                    "default":{}
+                }
+            },
+            "default":{}
         }
     }
 
