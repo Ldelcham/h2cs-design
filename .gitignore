@@ -6,6 +6,9 @@ __pycache__/
 # visual studio code
 .vscode/
 
+# Excel file
+*.xlsx
+
 # C extensions
 *.so
 

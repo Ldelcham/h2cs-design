@@ -1,7 +1,13 @@
 import logging
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),"..",".."))
+from oemof import solph
+
+from oemof.solph.processing import meta_results, results
+from vppopt.nodes_utils import nodes_data_excel_parser, create_nodes,nodes_from_dict
+from vppopt.vppopt import run_vppopt
+from vppopt.results import om_result_to_excel
+
 import argparse
 from vppopt.workflow import WorkFlow
 
@@ -25,7 +31,13 @@ def main():
     #==========================#
     # run sub-command
     run_parser = subparsers.add_parser("run",help="run vppopt scenario and more")
-    run_parser.add_argument('-wf','--workflow',type=str,help='[REQUIRED] vppopt JSON Workflow', required=True)
+    run_parser.add_argument(
+        '-wf',
+        '--workflow',
+        type=str,
+        help='[REQUIRED] vppopt JSON Workflow', 
+        required=True
+        )
     
     #==========================#
     # excel_reader sub-command
@@ -35,6 +47,17 @@ def main():
         metavar='excel_file',
         type=str,
         help='[REQUIRED] Excel File for vppopt scenario')
+    
+    excel_reader_parser.add_argument(
+        '--graph',
+        help="Path for saving energy system graph",
+        type=str
+    )
+    excel_reader_parser.add_argument(
+        '--result_excel',
+        help="Path for saving energy system graph",
+        type=str
+    )
 
     args = parser.parse_args()
 
@@ -55,6 +78,11 @@ def main():
         if not os.path.exists(projDir):
             os.mkdir(projDir)
         workflow.ProjDir = projDir
+
+        workflow.ExternalScript.script_dir = os.path.join(projDir,"scripts")
+        scriptDir = str(workflow.ExternalScript.script_dir)
+        if not os.path.exists(scriptDir):
+            os.mkdir(scriptDir)
 
         workflowName = os.path.split(args.scenario)[-1].split('.')[0]
         jsonWorkflow.saveAs(os.path.join(projDir,"{}.json".format(workflowName)))
@@ -83,7 +111,7 @@ def main():
         epc_wind = economics.annuity(capex=1000,n=20,wacc=0.05)
         print(epc_wind)
 
-        bus_dict = {}
+        # bus_dict = {}
 
         logging.info('Create oemof objects')
         
@@ -92,7 +120,49 @@ def main():
         if not os.path.isfile(os.path.abspath(args.excel_file)):
             err_msg = "ERROR: No such file or directory {}".format(os.path.abspath(args.excel_file))
             print(err_msg)
-        pass
+        
+        # should try with xlrd first?
+        nodes_data_dictionary = nodes_data_excel_parser(args.excel_file,engine='openpyxl')
+        nodes = nodes_from_dict(nd=nodes_data_dictionary)
+        esys,om = run_vppopt(nodes)
+
+        if args.graph:
+            from oemof.network.graph import create_nx_graph
+            logging.info("Create graph of energy system")
+            graph_name = args.graph
+            graph = create_nx_graph(esys,filename=graph_name)
+            if os.path.isfile(graph_name):
+                print("Graph created at {}".format(os.path.abspath(graph_name)))
+            else:
+                print("Graph is not found at {}".format(os.path.abspath(graph_name)))
+            
+            from vppopt.utils import draw_graph
+            draw_graph(
+                grph=graph,
+                plot=True,
+                node_size=1000,
+                node_color={
+                    "bel":"yellow",
+                    "bh2":"green",
+                    "bheat":"red"
+                }
+            )
+        
+        if args.result_excel:
+            excel_path = args.result_excel
+            om_result_to_excel(om, excel_path)
+        
+        meta_results = solph.processing.meta_results(om)
+        import pprint as pp
+        pp.pprint(meta_results)
+
+        results = solph.processing.results(om)
+        R1_bus_el_results = solph.views.node(results, "R1_bus_el")
+        
+        
+
+
+
 
 
 if __name__=='__main__':
