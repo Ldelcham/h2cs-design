@@ -3,12 +3,12 @@ import os
 from collections import OrderedDict
 
 import pandas as pd
-
+#===========================================
 with open(os.path.join(os.path.dirname(__file__),"vppopt_schema.json"),"r") as jsonfile:
     WORKFLOW_SCHEMA = json.load(jsonfile)
-
-# excel template for ...
-EXCEL_TMPL=OrderedDict(
+#===========================================
+# scenario excel template
+SCENARIO_EXCEL_TMPL=OrderedDict(
     {
         "INFO":OrderedDict(),
         "buses":OrderedDict(
@@ -57,7 +57,8 @@ EXCEL_TMPL=OrderedDict(
                 "capex":[],
                 "max":[],
                 "min":[],
-                "existing":[]
+                "existing":[],
+                "epc_invest":[]
             }
         ),
         "storages":OrderedDict(
@@ -70,15 +71,20 @@ EXCEL_TMPL=OrderedDict(
                 "nominal capacity":[],
                 "capacity loss":[],
                 "efficiency inflow":[],
-                "effiency outflow":[],
+                "efficiency outflow":[],
                 "initial capacity":[],
                 "capacity min":[],
                 "capacity max":[],
                 "variable input costs":[],
-                "variable output costs":[]
+                "variable output costs":[],
+                "capex":[],
+                "max":[],
+                "min":[],
+                "existing":[],
+                "epc_invest":[]
             }
         ),
-        "transformer":OrderedDict(
+        "transformers":OrderedDict(
             {
                 "label":[],
                 "active":[],        # 1 is active otherwise deactive
@@ -87,7 +93,28 @@ EXCEL_TMPL=OrderedDict(
                 "efficiency":[],
                 "capacity":[],
                 "variable input costs":[],
-                "capex":[]
+                "capex inflow":[],
+                "max inflow":[],
+                "min inflow":[],
+                "existing inflow":[],
+            }
+        ),
+        "transformers_chp":OrderedDict(
+            {
+                "label":[],
+                "active":[],        # 1 is active otherwise deactive
+                "from":[],         # from_bus
+                "to_el":[],         # to_bus,
+                "to_heat":[],         # to_bus,
+                "efficiency_el":[],
+                "efficiency_heat":[],
+                "capacity_el":[],
+                "capacity_heat":[],
+                "variable input costs":[],
+                "capex elec":[],
+                "max elec":[],
+                "min elec":[],
+                "existing elec":[]
             }
         ),
         "time_series":OrderedDict(
@@ -104,14 +131,19 @@ EXCEL_TMPL=OrderedDict(
     }
 )
 #===========================================
-def excel_scenario_init(excel_path,**kwargs):
-    
+def excel_scenario_init(excel_path,**kwargs):    
     """
+    Create empty excel file containing nodes data for oemof EnergySystem class.
+    Inspired from https://github.com/oemof/oemof-examples/tree/master/oemof_examples/oemof.solph/v0.4.x/excel_reader
+
+    Parameters
+    ----------
+    excel_path: str, excel file path
     
     """
     
     sheet_dict = {}
-    for key,val in EXCEL_TMPL.items():
+    for key,val in SCENARIO_EXCEL_TMPL.items():
         try:
             sheet_dict[key] = pd.DataFrame.from_dict(val)
         except:
@@ -132,3 +164,15 @@ def excel_scenario_init(excel_path,**kwargs):
         raise Exception(err_msg)
     else:
         print("Excel file is created at {}".format(excel_path))
+        return
+
+if __name__=='__main__':
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Script for generating vppopt excel scenario'
+        )
+    parser.add_argument('excel_path',type=str,help='excel path')
+
+    args =parser.parse_args()
+
+    excel_scenario_init(args.excel_path)
