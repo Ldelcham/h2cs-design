@@ -4,6 +4,8 @@
 ## TODO
 
 - graphviz for draw bus, node and edge
+- export result to excel
+- create graph for energy system
 
 ## v2021.02
 
