@@ -4,3 +4,5 @@ openpyxl
 xlrd
 matplotlib
 python_jsonschema_objects
+xlsxwriter
+pygraphviz
