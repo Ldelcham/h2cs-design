@@ -34,15 +34,18 @@ To be completed ...
 
 ## Installation
 
-python 3 is required, [miniconda]() is recommended
+python 3 is required, [miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended
 
 ```bash
 git clone https://github.com/cenaero-enb/h2cs-design.git
 cd h2cs-design
 python setup.py install
+pip install -r requirements.txt
 ```
 
-To be completed ...
+### Extras
+
+- [pygraphviz](https://github.com/pygraphviz/pygraphviz/blob/main/INSTALL.txt)
 
 ## Usage
 
