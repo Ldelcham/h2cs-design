@@ -1,0 +1,186 @@
+{
+    "$id":"http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref":"#/definitions/Vppopt Workflow Schema",
+    "definitions": {
+        "Vppopt Workflow Schema":{
+            "description": "JSON Schema for vppopt scenario",
+            "type":"object",
+            "properties": {
+                "ProjName":{
+                    "title": "Project Name",
+                    "description": "Name of project",
+                    "type":"string",
+                    "default":"Untitled Project"
+                },
+                "ProjDir":{
+                    "description": "Path to the project directory",
+                    "type":"string",
+                    "default":""
+                },
+                "WorkflowFile":{
+                    "description": "workflow file path",
+                    "type":"string",
+                    "default":"pytpee.json"
+                },
+                "Scenario":{
+                    "description": "Scenario for vppopt",
+                    "type":"object",
+                    "properties": {
+                        "Site":{
+                            "$ref":"#/definitions/Site Data",
+                            "default":{}
+                        },
+                        "PV":{
+                            "$ref":"#/definitions/PV Data",
+                            "default":{}
+                        },
+                        "ElectricLoad":{
+                            "$ref":"#/definitions/Electric Load Data",
+                            "default":{}
+                        },
+                        "Financial":{
+                            "$ref":"#definitions/Financial Data",
+                            "default":{}
+                        }
+                    },
+                    "default":{}
+                },
+                "Nodes":{
+                    "description": "Nodes data",
+                    "type":"object",
+                    "properties": {
+                        "Buses":{
+                            "description": "Buses data",
+                            "type":"object",
+                            "properties": {
+                                "label":{
+                                    "description": "bus lable, e.g. bel, bgas",
+                                    "type":"array",
+                                    "items": {
+                                        "$ref":"#/definitions/Oemof Label Data"
+                                    },
+                                    "default":[]
+                                }
+                            },
+                            "default":{}
+                        }
+                    },
+                    "default":{}
+                },
+                "ExternalScript":{
+                    "$ref":"#/definitions/External Script Data",
+                    "default":{}
+                }
+
+            }
+        },
+        "Site Data":{
+            "description": "Site data for vppopt",
+            "type":"object",
+            "properties": {
+                "longitude":{
+                    "description": "longitude",
+                    "type":["string","number"],
+                    "default":""
+                },
+                "latitude":{
+                    "description": "latitude",
+                    "type":["string","number"],
+                    "default":""
+                }
+            }
+        },
+        "PV Data":{
+            "description": "PV data fro vppopt",
+            "type":"object",
+            "properties": {
+                "cost_per_kw":{
+                    "description": "cost per installed kw",
+                    "type":["string","number"],
+                    "default":""
+                },
+                "tilt":{
+                    "description": "tilt angle",
+                    "type":["null","number"],
+                    "default":null
+                }
+            },
+            "default":{}
+        },
+        "Electric Load Data":{
+            "description": "Electric load data fro vppopt",
+            "type":"object",
+            "properties": {
+                "loads_kw":{
+                    "description": "loads kw data",
+                    "type":["array"],
+                    "default":[]
+                }
+
+            },
+            "default":{}
+        },
+        "Oemof Label Data":{
+            "description": "Oemof.solph label data",
+            "type":["null","string"],
+            "default":null
+        },
+        "Financial Data":{
+            "description": "Financial data for vppopt",
+            "type":"object",
+            "properties": {
+                "analysis_years":{
+                    "description": "number of year for analysis period",
+                    "type":["null","integer"],
+                    "default":null
+                }
+            }
+        },
+        "External Script Data":{
+            "description": "External Python Script",
+            "type":"object",
+            "properties": {
+                "script_dir":{
+                    "description": "scripts dirname",
+                    "type":"string",
+                    "default":""
+                },
+                "scripts":{
+                    "description": "external python scripts",
+                    "type":"array",
+                    "items": {
+                        "#ref":"#/definitions/External Script Definition"
+                    },
+                    "default":[{}]
+                }
+            }
+        },
+        "External Script Definition":{
+            "description": "External Python Script",
+            "title": "External Python Script",
+            "type":"object",
+            "properties": {
+                "name":{
+                    "description": "name of python external script, i.e. update_schedule_electric_equipment",
+                    "type":"string",
+                    "default":""
+                },
+                "tag":{
+                    "description": "type of python external script, i.e. 'inputgen' or 'model' or 'reporting'",
+                    "type":"string",
+                    "enum": ["","inputgen","model","reporting"],
+                    "default":""
+                },
+                "arguments":{
+                    "description": "keyword argument with value, e.g. 'apart_list':['B02']",
+                    "type":"object",
+                    "default":{}
+                }
+            },
+            "default":{}
+        }
+    }
+
+    
+}
