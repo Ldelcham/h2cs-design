@@ -23,6 +23,11 @@
                     "type":"string",
                     "default":"pytpee.json"
                 },
+                "NodesDataExcelFile":{
+                    "description": "Excel file contains nodes data",
+                    "type":"string",
+                    "default":""
+                },
                 "Scenario":{
                     "description": "Scenario for vppopt",
                     "type":"object",
