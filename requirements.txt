@@ -6,3 +6,6 @@ matplotlib
 python_jsonschema_objects
 xlsxwriter
 pygraphviz
+loguru
+oemof.solph
+xmltodict
