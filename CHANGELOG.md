@@ -3,6 +3,8 @@
 
 ## TODO
 
+- add constraint
+- modify objective function
 - graphviz for draw bus, node and edge
 - export result to excel
 - create graph for energy system

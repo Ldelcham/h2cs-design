@@ -18,6 +18,8 @@ VPPopt is expected to offer a range of features and capabilities to help users w
 
 The following table describes the full breadth of VPPopt capabilities, including data inputs and variables, and the platform’s outputs and recommendations.
 
+vppopt using [oemof.solph] to created a pyomo model which is a LP or a MILP optimization problem. The latter is then solved by a LP or MILP solver such as CBC, GLPK, Cplex, Gurobi
+
 ### Data Inputs
 
 |Type |Name| Description|
@@ -46,6 +48,10 @@ pip install -r requirements.txt
 ### Extras
 
 - [pygraphviz](https://github.com/pygraphviz/pygraphviz/blob/main/INSTALL.txt)
+
+## Installing a solver
+
+Various commercial and open-source solvers are available and can be used with vppopt, e.g. Cplex, Gurobi, CBC, GLPK, IPOPT, etc. As recommanded from oemof.solph, it worths sometime comparing the result of different solvers. More information about solvers supported by pyomo could be found [here](https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html#supported-solvers)
 
 ## Usage
 

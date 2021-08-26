@@ -5,11 +5,13 @@ from oemof import solph
 
 from oemof.solph.processing import meta_results, results
 from vppopt.nodes_utils import nodes_data_excel_parser, create_nodes,nodes_from_dict
-from vppopt.vppopt import run_vppopt
+from vppopt.vppopt import run_vppopt, run_external_script
 from vppopt.results import om_result_to_excel
 
 import argparse
 from vppopt.workflow import WorkFlow
+from vppopt.schemas import excel_scenario_init
+from loguru import logger
 
 def main():
     parser = argparse.ArgumentParser(
@@ -68,8 +70,7 @@ def main():
         workflow = jsonWorkflow.workflow
 
         if not args.proj_dir:
-            # if project directory is not specified, a directory named 
-            # 'NewProject' will be created in the current working directory
+            logger.info("No value is given for proj_dir argument, 'NewProject' directory will be created as project directory")
             projDir = os.path.join(os.getcwd(),"NewProject")
         else:
             projDir = os.path.abspath(args.proj_dir)
@@ -83,12 +84,18 @@ def main():
         scriptDir = str(workflow.ExternalScript.script_dir)
         if not os.path.exists(scriptDir):
             os.mkdir(scriptDir)
-
+        
+        # workflow name or senario name
         workflowName = os.path.split(args.scenario)[-1].split('.')[0]
         jsonWorkflow.saveAs(os.path.join(projDir,"{}.json".format(workflowName)))
-
         workflow.WorkflowFile = os.path.join(projDir,"{}.json".format(workflowName))
-        workflow.Scenario.Site.logitude=10.6
+
+        # automatically generate excel input
+        excel_path = os.path.join(projDir,"{}.xlsx".format(workflowName))
+        excel_scenario_init(excel_path)
+        workflow.NodesDataExcelFile = excel_path        
+        
+        # workflow.Scenario.Site.logitude=10.6 # TODO: addd restriction to json field
 
         jsonWorkflow.save()
     
@@ -97,23 +104,27 @@ def main():
 
         if not os.path.isfile(os.path.abspath(args.workflow)):
             err_msg = "ERROR: No such file or directory {}".format(os.path.abspath(args.workflow))
-            print(err_msg)
-
-            #raise Exception(err_msg)
+            logger.error(err_msg)
+            return 1
         
-        from oemof.tools import logger
-        from oemof.tools import economics
-
-
-        logger.define_logging()
-        logging.info("Initialize the energy system")
+        workflowObj = WorkFlow()
+        workflowObj.load_workflow(args.workflow)
+        ################# Update Project dir#################
+        # TODO: update project dir information in workflow file when move to another machine
+        #####################################################
+        # get nodes data excel file from workflow file
+        nodesExcelFile = workflowObj.workflow_for_json["NodesDataExcelFile"]
+        # read in nodes data from excel file into python dictionary
+        nodes_data_dictionary = nodes_data_excel_parser(nodesExcelFile,engine='openpyxl')
+        # create oemof nodes liste from nodes data dictionary
+        nodes = nodes_from_dict(nd=nodes_data_dictionary)
         
-        epc_wind = economics.annuity(capex=1000,n=20,wacc=0.05)
-        print(epc_wind)
-
-        # bus_dict = {}
-
-        logging.info('Create oemof objects')
+        esys,om = run_vppopt(nodes)
+        
+        ############## Reporting external scripts would be run here############
+        run_external_script(workflowObj,esys=esys,om=om, script_type="reporting")        
+        
+        # automatically store all 
         
     #===========================#    
     if args.subcmd=='excel_reader':
@@ -130,7 +141,7 @@ def main():
         # Energy System Graph
         if args.graph:
             from oemof.network.graph import create_nx_graph
-            logging.info("Create graph of energy system")
+            logger.info("Create graph of energy system")
             graph_name = args.graph
             graph = create_nx_graph(esys,filename=graph_name)
             if os.path.isfile(graph_name):

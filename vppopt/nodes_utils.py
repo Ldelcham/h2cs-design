@@ -556,8 +556,6 @@ def nodes_from_dict(nd=None,**kwargs):
                 if row["existing elec"] and not pd.isnull(row["existing elec"]):
                     invest_args["existing"] = row["existing elec"]
                 
-                print(invest_args)
-                
                 outflow_elec_args["investment"] = solph.Investment(**invest_args)
                 investment = solph.Investment(**invest_args)
             else:
@@ -608,7 +606,6 @@ def nodes_from_dict(nd=None,**kwargs):
                     **invest_args
                 )
                 nominal_capacity=None
-                print(invest_args)
             
             #TODO add if row["capex inflow"] and if row["capex outflow"]
             #TODO read relation_capacity_inflow/outflow from excel
