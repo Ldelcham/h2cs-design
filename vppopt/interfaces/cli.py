@@ -126,6 +126,8 @@ def main():
         nodes = nodes_from_dict(nd=nodes_data_dictionary)
         esys,om = run_vppopt(nodes)
 
+        ##############POST PROCESSING############
+        # Energy System Graph
         if args.graph:
             from oemof.network.graph import create_nx_graph
             logging.info("Create graph of energy system")
@@ -147,7 +149,8 @@ def main():
                     "bheat":"red"
                 }
             )
-        
+        ####################################################
+        # Result excel file (could be automatically created)
         if args.result_excel:
             excel_path = args.result_excel
             om_result_to_excel(om, excel_path)
@@ -158,12 +161,6 @@ def main():
 
         results = solph.processing.results(om)
         R1_bus_el_results = solph.views.node(results, "R1_bus_el")
-        
-        
-
-
-
-
 
 if __name__=='__main__':
     main()

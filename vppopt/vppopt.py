@@ -9,9 +9,11 @@ def run_vppopt(nodes,**kwargs):
     """
     :param model - pyomo abstract model
     """
+    # TODO: timeindex could be gotten from vppopt.json, timeseries data
     timeindex = kwargs.get('timeindex',None)
     periods = kwargs.get('periods',8760)
 
+    # solver could be gotten from vppopt also
     solver = kwargs.get('solver','cbc')
     solver_io = kwargs.get('solver_io',"lp")
     executable = kwargs.get('executable',"")
