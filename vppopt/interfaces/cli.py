@@ -24,7 +24,7 @@ def main():
     #==========================#
     # init sub-command
     """
-    cli init -pdir
+    vppopt init -pdir
     """
     init_parser = subparsers.add_parser("init",help="Initializing vppopt scenario and more")
     init_parser.add_argument('-pdir','--proj_dir',type=str,help='vppopt project directory')
@@ -119,7 +119,7 @@ def main():
         # create oemof nodes liste from nodes data dictionary
         nodes = nodes_from_dict(nd=nodes_data_dictionary)
         
-        esys,om = run_vppopt(nodes)
+        esys,om = run_vppopt(nodes, workflowObj=workflowObj)
         
         ############## Reporting external scripts would be run here############
         run_external_script(workflowObj,esys=esys,om=om, script_type="reporting")        
