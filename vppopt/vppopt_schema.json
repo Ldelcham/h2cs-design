@@ -73,6 +73,10 @@
                     },
                     "default":{}
                 },
+                "SimulationStep":{
+                    "type":"object",
+                    "default":{}
+                },
                 "ExternalScript":{
                     "$ref":"#/definitions/External Script Data",
                     "default":{}
@@ -161,6 +165,13 @@
                     "type":["null","integer"],
                     "default":null
                 }
+            }
+        },
+        "Simulation Step":{
+            "description": "Simulation step setting",
+            "type":"object",
+            "properties": {
+                
             }
         },
         "External Script Data":{
