@@ -46,6 +46,7 @@ def run_external_script(
     
     script_count = 0
     for script in externalScript["scripts"]:
+        print(script)
         if (not script["tag"]) or (not script["name"]):
             script_count+=1
             print(
@@ -113,6 +114,9 @@ def run_vppopt(nodes,**kwargs):
     # Optimize the energy system
     #####################################
     om = solph.Model(energy_system)
+
+    # TODO: all external script with tag of 'model' must be run here
+    run_external_script(workflowObj,esys=energy_system, om=om, script_type="model")
 
     # TODO: Do not understand what is it for?
     om.receive_duals()
