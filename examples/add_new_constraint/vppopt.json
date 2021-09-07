@@ -1,0 +1,42 @@
+{
+    "ProjName": "Untitled Project",
+    "ProjDir": "G:\\Workspace\\Cenaero\\Git\\h2cs-design\\examples\\add_new_constraint",
+    "WorkflowFile": "G:\\Workspace\\Cenaero\\Git\\h2cs-design\\examples\\add_new_constraint\\vppopt.json",
+    "NodesDataExcelFile": "G:\\Workspace\\Cenaero\\Git\\h2cs-design\\examples\\add_new_constraint\\vppopt.xlsx",
+    "Scenario": {
+        "Site": {
+            "longitude": "",
+            "latitude": ""
+        },
+        "PV": {
+            "cost_per_kw": "",
+            "tilt": null
+        },
+        "ElectricLoad": {
+            "loads_kw": []
+        },
+        "Financial": {
+            "analysis_years": null
+        }
+    },
+    "Nodes": {
+        "Buses": {
+            "label": []
+        }
+    },
+    "ExternalScript": {
+        "script_dir": "G:\\Workspace\\Cenaero\\Git\\h2cs-design\\examples\\add_new_constraint\\scripts",
+        "scripts": [
+            {
+                "name":"reporting_create_graph",
+                "tag":"reporting",
+                "arguments":{}
+            },
+            {
+                "name":"model_add_emission_constraint",
+                "tag":"model",
+                "arguments":{}
+            }
+        ]
+    }
+}

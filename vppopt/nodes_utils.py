@@ -5,13 +5,35 @@ General description
 Collection of functions for handling with oemof.solph nodes
 """
 
-import logging
 import os
 from oemof import solph
 from oemof.tools import economics
 import pandas as pd
 from loguru import logger
 import numpy as np
+import json
+
+def nodes_data_excel_to_json(excel_path,json_path,**kwargs):
+    """
+    convert excel to json
+    """
+    if not os.path.isfile(excel_path):
+        err_msg = "File not found at {}".format(excel_path)
+        logger.error(err_msg)
+        return 1
+    excel_parser_engine = kwargs.get("engine","xlrd")
+    nodes = nodes_data_excel_parser(excel_path,engine=excel_parser_engine)
+    nodes_dict = dict()
+
+    for key in nodes.keys():
+        if key.lower() != 'timeseries':
+            nodes_dict[key] = nodes[key].to_dict(orient='records')
+        elif key.lower() == 'timeseries':
+            nodes_dict[key] = nodes[key].to_dict(orient='list')
+    
+    with open(json_path,"w") as fp:
+        json.dump(nodes_dict,fp,indent=4)
+   
 
 def nodes_data_excel_parser(excel_path,**kwargs):
     """
@@ -32,7 +54,7 @@ def nodes_data_excel_parser(excel_path,**kwargs):
     :obj:`dict`
         Imported nodes data
     """
-    engine = kwargs.get("engine","xlrd")
+    excel_parser_engine = kwargs.get("engine","xlrd")
 
     # Check if excel file exists
     if not excel_path or not os.path.isfile(excel_path):
@@ -40,7 +62,7 @@ def nodes_data_excel_parser(excel_path,**kwargs):
             "Excel data file {} not found.".format(excel_path)
         )
 
-    xls = pd.ExcelFile(excel_path,engine=engine)
+    xls = pd.ExcelFile(excel_path,engine=excel_parser_engine)
 
     try:
         # TODO for sheet in xls.sheet_names:
@@ -534,8 +556,6 @@ def nodes_from_dict(nd=None,**kwargs):
                 if row["existing elec"] and not pd.isnull(row["existing elec"]):
                     invest_args["existing"] = row["existing elec"]
                 
-                print(invest_args)
-                
                 outflow_elec_args["investment"] = solph.Investment(**invest_args)
                 investment = solph.Investment(**invest_args)
             else:
@@ -586,7 +606,6 @@ def nodes_from_dict(nd=None,**kwargs):
                     **invest_args
                 )
                 nominal_capacity=None
-                print(invest_args)
             
             #TODO add if row["capex inflow"] and if row["capex outflow"]
             #TODO read relation_capacity_inflow/outflow from excel

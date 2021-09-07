@@ -23,6 +23,11 @@
                     "type":"string",
                     "default":"pytpee.json"
                 },
+                "NodesDataExcelFile":{
+                    "description": "Excel file contains nodes data",
+                    "type":"string",
+                    "default":""
+                },
                 "Scenario":{
                     "description": "Scenario for vppopt",
                     "type":"object",
@@ -68,9 +73,34 @@
                     },
                     "default":{}
                 },
+                "SimulationStep":{
+                    "type":"object",
+                    "default":{}
+                },
                 "ExternalScript":{
                     "$ref":"#/definitions/External Script Data",
                     "default":{}
+                },
+                "Optimizer":{
+                    "description": "Optimizer infomation and settings",
+                    "type":"object",
+                    "properties": {
+                        "name":{
+                            "description": "name of optimizer to be used, e.g. cbc, ipopt",
+                            "type":"string",
+                            "default":"cbc"
+                        },
+                        "executable":{
+                            "description": "path to optimizer executable if optimizer can not be found in sytem paht",
+                            "type":["string","null"],
+                            "default": null
+                        },
+                        "solver_io":{
+                            "description": "solver io format, i.e. lp or nl",
+                            "type":"string",
+                            "default":"lp"
+                        }
+                    }
                 }
 
             }
@@ -135,6 +165,13 @@
                     "type":["null","integer"],
                     "default":null
                 }
+            }
+        },
+        "Simulation Step":{
+            "description": "Simulation step setting",
+            "type":"object",
+            "properties": {
+                
             }
         },
         "External Script Data":{
